@@ -12,7 +12,7 @@ class Calculator {
 	}
 
 	delete() {
-
+		this.currentOperand = this.currentOperand.toString().slice(0, -1)
 	}
 
 	appendNumber(number) {
@@ -57,11 +57,20 @@ class Calculator {
 		this.previousOperand = ''
 	}
 
+	getDisplayNumber(number) {
+		const floatNumber = parseFloat(number)
+		if (isNaN(floatNumber)) return ''
+		return floatNumber.toLocaleString('en')
+	} 
+
 	updateDisplay() {
-		this.currentOperandTextElement.innerText = this.currentOperand
+		this.currentOperandTextElement.innerText = 
+			this.getDisplayNumber(this.currentOperand)
 		this.previousOperandTextElement.innerText = this.previousOperand
 	}
  }
+
+
 
 const numberButtons = document.querySelectorAll('[data-number]');
 const operationButtons = document.querySelectorAll('[data-operation]');
@@ -88,6 +97,16 @@ operationButtons.forEach(button => {
 })
 
 equalsButton.addEventListener('click', button => {
-	calculator.compute()
+	calculator.clear()
+	calculator.updateDisplay()
+})
+
+allClearButton.addEventListener('click', button => {
+	calculator.clear()
+	calculator.updateDisplay()
+})
+
+deleteButton.addEventListener('click', button => {
+	calculator.delete()
 	calculator.updateDisplay()
 })
