@@ -1,46 +1,50 @@
-var oneBtn = document.getElementById('calc-one');
-var twoBtn = document.getElementById('calc-two');
-var threeBtn = document.getElementById('calc-three');
-var fourBtn = document.getElementById('calc-four');
-var fiveBtn = document.getElementById('calc-five');
-var sixBtn = document.getElementById('calc-six');
-var sevenBtn = document.getElementById('calc-seven');
-var eightBtn = document.getElementById('calc-eight');
-var nineBtn = document.getElementById('calc-nine');
-var zeroBtn = document.getElementById('calc-zero');
+class Calculator {
+	constructor(previousOperandTextElement, currentOperandTextElement) {
+		this.previousOperandTextElement = previousOperandTextElement
+		this.currentOperandTextElement = currentOperandTextElement
+		this.clear()
+	}
 
-var decimalBtn = document.getElementById('calc-decimal');
-var clearBtn = document.getElementById('calc-clear');
-var backspaceBtn = document.getElementById('calc-backspace');
-var displayValElement = getElementById('calc-display-val');
+	clear() {
+		this.currentOperand = ''
+		this.previousOperand = ''
+		this.operation = undefined
+	}
 
-var displayVal = '0';
-var pendingVal;
-var evalStringArray = [];
+	delete() {
 
-var calcNumBtns = document.getElementsByClassName('calc-btn-num')
-var calcOperatorBtns = document.getElementsByClassName('calc-btn-operator');
+	}
 
-var updateDisplayVal = (clickObj) => {
-	var btnText = clickObj.target.innerText;
+	appendNumber(number) {
+		this.currentOperand = number
+	}
 
-	if (displayVal === '0')
-		displayVal = '';
-		displayVal += btnText;
-		displayValElement.innerText = displayVal;
+	chooseOperation(operation) {
 
-}
+	}
 
-for (let i = 0; i < calcNumBtns.length; i++) {
-	calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
-}
+	compute() {
 
-// for (let i = 0; i < calcNumBtns.length; i++) {
-// 	calcOperatorBtns[i].addEventListener('click', performCalcOperation, false);
-//
+	}
 
-clearBtn.onclick = () => {
-	displayVal = '0';
-	pendingVal = undefined;
-	displayValElement.innerHTML = displayVal;
-}
+	updateDisplay() {
+		this.currentOperandTextElement.innerText = this.currentOperand
+	}
+ }
+
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
+
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
+
+numberButtons.forEach(button => {
+	button.addEventListener('click', () => {
+		calculator.appendNumber(button.innerText)
+		calculator.updateDisplay()
+	})
+})
